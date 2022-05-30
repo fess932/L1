@@ -1,20 +1,28 @@
 package l1_test
 
 import (
-	"log"
-	"sort"
+	"fmt"
+	"sync/atomic"
 	"testing"
+	"time"
 )
 
 // Реализовать структуру-счетчик, которая будет инкрементироваться в конкурентной среде.
 // По завершению программа должна выводить итоговое значение счетчика.
 
-func counter(s []int) {
-	sort.Ints(s)
+type counter int64
+
+func (c *counter) add() {
+	atomic.AddInt64((*int64)(c), 1)
 }
 
 func Test_counter(t *testing.T) {
-	s := []int{5, 4, 3, 10, 2, -1, 0, 999}
-	counter(s)
-	log.Println(s)
+	c := counter(0)
+
+	for i := 0; i < 1000; i++ {
+		go c.add()
+	}
+
+	time.Sleep(time.Second)
+	fmt.Println(c)
 }

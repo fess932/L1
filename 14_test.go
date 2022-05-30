@@ -6,7 +6,9 @@ import (
 	"testing"
 )
 
-// Имеется последовательность строк - (cat, cat, dog, cat, tree) создать для нее собственное множество.
+// Разработать программу, которая в рантайме способна
+// определить тип переменной: int, string, bool, channel из
+// переменной типа interface{}.
 
 func checkType(v interface{}) reflect.Type {
 	return reflect.TypeOf(v)
