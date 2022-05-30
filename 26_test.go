@@ -1,6 +1,7 @@
 package l1_test
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -11,10 +12,25 @@ import (
 // abCdefAaf — false
 // aabcd — false
 
-func unique(s string) string {
-	return ""
+func unique(s string) bool {
+	s = strings.ToLower(s)
+	entries := map[string]struct{}{}
+
+	for _, v := range s {
+		if _, ok := entries[string(v)]; ok {
+			return false
+		}
+
+		entries[string(v)] = struct{}{}
+	}
+
+	return true
 }
 
 func Test_unique(t *testing.T) {
-	unique("abc")
+	t.Log(unique("abcd"))
+	t.Log(unique("aabc"))
+	t.Log(unique("Aabc"))
+	t.Log(unique("Фвф"))
+	t.Log(unique("фыва"))
 }

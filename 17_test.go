@@ -7,23 +7,23 @@ import (
 
 // Реализовать бинарный поиск встроенными методами языка.
 
-func bsearch(s []int, x int) int {
-	for i := 0; ; i++ {
-		if len(s) < 2 {
-			return -1
+// return index of value or -1 if not found
+func bsearch(s []int, value int) int {
+	left, right := 0, len(s)-1
+	for left <= right {
+		mid := (left + right) / 2
+		if s[mid] == value {
+			return mid
 		}
 
-		a := len(s) / 2
-		if s[a] == x {
-			return i
-		}
-
-		if s[a] > x {
-			s = s[:a]
+		if s[mid] < value {
+			left = mid + 1
 		} else {
-			s = s[a+1:]
+			right = mid - 1
 		}
 	}
+
+	return -1
 }
 
 func Test_bsearch(t *testing.T) {

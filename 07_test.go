@@ -4,6 +4,7 @@ import (
 	"log"
 	"sync"
 	"testing"
+	"time"
 )
 
 type syncmap struct {
@@ -27,7 +28,13 @@ func (s *syncmap) get(key int) int {
 func Test_syncmap(t *testing.T) {
 	a := syncmap{m: make(map[int]int)}
 
-	a.add(1, 2)
+	for i := 0; i < 10; i++ {
+		go func(i int) {
+			a.add(1, i)
+		}(i)
+	}
+
+	sleep(1 * time.Second)
+
 	log.Println(a.get(1))
-	log.Println(a.get(2))
 }

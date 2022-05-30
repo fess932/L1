@@ -1,16 +1,23 @@
 package l1_test
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 )
 
-// Реализовать структуру-счетчик, которая будет инкрементироваться в конкурентной среде.
-// По завершению программа должна выводить итоговое значение счетчика.
+// Разработать программу, которая переворачивает подаваемую на ход строку
+// (например: «главрыба — абырвалг»). Символы могут быть unicode.
 
 func strReverse(s string) string {
-	return ""
+	var result strings.Builder
+	for i := len(s) - 1; i >= 0; i-- {
+		result.WriteString(string(s[i]))
+	}
+
+	return result.String()
 }
 
 func Test_strReverse(t *testing.T) {
-	strReverse("abc")
+	fmt.Println(strReverse("abc"))
 }
