@@ -23,4 +23,5 @@ func wordReverse(s string) string {
 
 func Test_wordReverse(t *testing.T) {
 	fmt.Println(wordReverse("snow dog sun"))
+	fmt.Println(wordReverse("снег собака солнце"))
 }

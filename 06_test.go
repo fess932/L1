@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+// Реализовать все возможные способы остановки выполнения горутины.
+
 func closechan(in <-chan interface{}) {
 	for range in {
 	}

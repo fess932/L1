@@ -10,12 +10,21 @@ import (
 	"time"
 )
 
+/*
+Реализовать постоянную запись данных в канал (главный поток).
+Реализовать набор из N воркеров, которые читают произвольные данные из канала и выводят в stdout.
+Необходима возможность выбора количества воркеров при старте.
+
+Программа должна завершаться по нажатию Ctrl+C. Выбрать и обосновать способ завершения работы всех воркеров.
+*/
+
 func runService() {
 	ch := make(chan string)
 	randStr := func(length int) string {
 		rand.Seed(time.Now().UnixNano())
 		b := make([]byte, length)
 		rand.Read(b)
+
 		return fmt.Sprintf("%x", b)[:length]
 	}
 
@@ -36,14 +45,11 @@ func runService() {
 		go worker(ch)
 	}
 
-	ctx := context.Background()
-	ctx, c := signal.NotifyContext(ctx, os.Interrupt)
+	ctx, c := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer c()
 
-	select {
-	case <-ctx.Done():
-		fmt.Println("Done")
-	}
+	<-ctx.Done()
+	fmt.Println("Done")
 }
 
 func Test_worker(t *testing.T) {

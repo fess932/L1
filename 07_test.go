@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// Реализовать конкурентную запись данных в map.
+
 type syncmap struct {
 	sync.Mutex
 	m map[int]int

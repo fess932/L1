@@ -7,6 +7,11 @@ import (
 	"testing"
 )
 
+/*
+Написать программу, которая конкурентно рассчитает значение квадратов чисел
+взятых из массива (2,4,6,8,10) и выведет их квадраты в stdout.
+*/
+
 func PrintSquares(n []int) {
 	var wg sync.WaitGroup
 
@@ -18,6 +23,7 @@ func PrintSquares(n []int) {
 			wg.Done()
 		}(v)
 	}
+
 	wg.Wait()
 }
 
